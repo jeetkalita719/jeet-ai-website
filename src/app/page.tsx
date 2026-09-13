@@ -52,7 +52,7 @@ export default function Home() {
         initial="hidden"
         animate="visible"
       >
-        <h2 className="text-secondary-foreground mt-1 text-xl font-semibold md:text-2xl">Hey, I&apos;m {PROFILE.firstName} 👋</h2>
+        <h2 className="text-secondary-foreground mt-1 text-xl font-semibold md:text-2xl">Hi, I&apos;m {PROFILE.firstName} 👋</h2>
         <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl">{PROFILE.title}</h1>
         <p className="text-muted-foreground mt-3 max-w-md text-sm md:text-base">{PROFILE.tagline}</p>
       </motion.div>
@@ -118,7 +118,7 @@ export default function Home() {
         </div>
 
         <p className="text-muted-foreground mt-8 text-xs">
-          Powered by an AI assistant I built — the same kind I build for clients.
+          Powered by an AI assistant I built myself.
         </p>
       </motion.div>
       <FluidCursor />
