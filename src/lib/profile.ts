@@ -7,6 +7,7 @@
 export const PROFILE = {
   name: 'Jeet Kalita',
   firstName: 'Jeet',
+  photo: '/jeet.jpg', // shown on the "Me" card; set to '' to fall back to the doodle
   title: 'AI Engineer',
   tagline: 'I build AI chatbots, automations and modern websites for businesses & creators — shipped and live.',
   location: 'India · working with clients worldwide (remote)',

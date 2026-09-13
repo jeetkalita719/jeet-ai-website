@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import React from 'react';
 import { PROFILE } from '@/lib/profile';
 import DoodleAvatar from './doodle-avatar';
@@ -18,15 +19,40 @@ export function Presentation() {
   return (
     <div className="mx-auto w-full max-w-5xl py-6 font-sans">
       <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[minmax(0,320px)_1fr]">
-        <div className="relative mx-auto flex aspect-square w-full max-w-xs items-end justify-center overflow-hidden rounded-3xl bg-accent">
+        {/* Photo (with the doodle mascot as a small badge) */}
+        <div className="relative mx-auto aspect-square w-full max-w-xs">
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.92, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
-            className="pb-2"
+            className="bg-accent relative h-full w-full overflow-hidden rounded-3xl"
           >
-            <DoodleAvatar size={240} />
+            {PROFILE.photo ? (
+              <Image
+                src={PROFILE.photo}
+                alt={PROFILE.name}
+                fill
+                priority
+                sizes="(max-width: 768px) 80vw, 320px"
+                className="object-cover object-center"
+              />
+            ) : (
+              <div className="flex h-full w-full items-end justify-center pb-2">
+                <DoodleAvatar size={240} />
+              </div>
+            )}
           </motion.div>
+          {PROFILE.photo && (
+            <motion.div
+              initial={{ scale: 0, rotate: -12 }}
+              animate={{ scale: 1, rotate: -6 }}
+              transition={{ delay: 0.5, type: 'spring', stiffness: 260, damping: 18 }}
+              className="bg-background absolute -right-3 -bottom-3 rounded-2xl p-1 shadow-lg"
+              aria-hidden="true"
+            >
+              <DoodleAvatar size={64} />
+            </motion.div>
+          )}
         </div>
 
         <div className="flex flex-col">
