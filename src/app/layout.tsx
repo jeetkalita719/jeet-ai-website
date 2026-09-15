@@ -2,7 +2,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import { Analytics } from '@vercel/analytics/react';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
@@ -32,15 +32,23 @@ export const metadata: Metadata = {
   icons: { icon: [{ url: '/favicon.svg', sizes: 'any' }], shortcut: '/favicon.svg', apple: '/favicon.svg' },
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  // matches the dark --background so mobile browser chrome doesn't sit white
+  themeColor: '#09090b',
+};
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" style={{ colorScheme: 'dark' }} suppressHydrationWarning>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="icon" href="/favicon.svg" sizes="any" />
       </head>
       <body className={cn('bg-background min-h-screen font-sans antialiased', inter.variable)}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <main className="flex min-h-screen flex-col">{children}</main>
           <Toaster />
         </ThemeProvider>

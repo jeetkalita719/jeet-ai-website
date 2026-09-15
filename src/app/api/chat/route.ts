@@ -1,5 +1,6 @@
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
+import { PROFILE } from '@/lib/profile';
 import { SYSTEM_PROMPT } from './prompt';
 import { getContact } from './tools/getContact';
 import { getFun } from './tools/getFun';
@@ -31,11 +32,17 @@ function rateLimited(ip: string) {
   return recent.length > MAX_PER_WINDOW;
 }
 
+/* ---------------- error handling ----------------
+ * Visitors NEVER see provider errors. Upstream messages can contain the API
+ * key prefix, model names, quota state and other plumbing — none of which
+ * belongs on a client-facing site. Full detail goes to the Vercel runtime
+ * logs (Project → Logs); the visitor gets one human sentence.
+ */
+const FRIENDLY_ERROR = `Sorry — my brain is offline for a moment. That's on me, not you. Try again shortly, or just email Jeet at ${PROFILE.email} and he'll reply personally.`;
+
 function errorHandler(error: unknown) {
-  if (error == null) return 'Unknown error';
-  if (typeof error === 'string') return error;
-  if (error instanceof Error) return error.message;
-  return JSON.stringify(error);
+  console.error('[chat] error:', error);
+  return FRIENDLY_ERROR;
 }
 
 export async function POST(req: Request) {
@@ -84,7 +91,7 @@ export async function POST(req: Request) {
 
     return result.toDataStreamResponse({ getErrorMessage: errorHandler });
   } catch (err) {
-    console.error('Global error:', err);
-    return new Response(errorHandler(err), { status: 500 });
+    errorHandler(err);
+    return new Response(FRIENDLY_ERROR, { status: 500 });
   }
 }

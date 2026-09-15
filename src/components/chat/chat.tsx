@@ -92,7 +92,7 @@ const Chat = () => {
       setLoadingSubmit(false);
       setIsTalking(false);
       console.error('Chat error:', error.message, error.cause);
-      toast.error(`Error: ${error.message}`);
+      toast.error(error.message);
     },
     onToolCall: (tool) => {
       const toolName = tool.toolCall.toolName;
