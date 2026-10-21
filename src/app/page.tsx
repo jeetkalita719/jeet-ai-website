@@ -107,7 +107,8 @@ export default function Home() {
               key={key}
               onClick={() => goToChat(QUICK_QUESTIONS[key])}
               variant="outline"
-              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:p-10 dark:bg-neutral-800/40"
+              style={{ '--chip-glow': `${color}66`, '--chip-border': color } as React.CSSProperties}
+              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg transition-all duration-300 hover:border-[var(--chip-border)] hover:shadow-[0_0_24px_-4px_var(--chip-glow)] active:scale-95 md:p-10 dark:bg-neutral-800/40"
             >
               <div className="text-foreground flex h-full flex-col items-center justify-center gap-1">
                 <Icon size={22} strokeWidth={2} color={color} />
