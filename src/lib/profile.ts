@@ -125,7 +125,6 @@ export type Project = {
   date: string;
   links: { name: string; url: string }[];
   cover: string; // path under /public, 16:9; used in the modal only
-  hue: number; // 0–359, card gradient hue (matches the cover SVG)
   tagline?: string; // one line for the card footer; ≤ 60 chars recommended
 };
 
@@ -142,7 +141,6 @@ export const PROJECTS: Project[] = [
       { name: 'GitHub', url: 'https://github.com/jeetkalita719/jeet-ai-website' },
     ],
     cover: '/covers/this-site.svg',
-    hue: 205,
     tagline: 'Chat-first portfolio · Vercel AI SDK · tool calling',
   },
   {
@@ -154,7 +152,6 @@ export const PROJECTS: Project[] = [
     date: '2026',
     links: [],
     cover: '/covers/job-agent.svg',
-    hue: 195,
     tagline: 'AI agent · ATS feeds · RAG · drafts applications',
   },
   {
@@ -166,7 +163,6 @@ export const PROJECTS: Project[] = [
     date: '2026',
     links: [],
     cover: '/covers/expense-mcp.svg',
-    hue: 260,
     tagline: 'FastMCP server · tools an assistant can call',
   },
   {
@@ -178,7 +174,6 @@ export const PROJECTS: Project[] = [
     date: '2026',
     links: [{ name: 'GitHub', url: 'https://github.com/jeetkalita719/yt_transcript_chatbot' }],
     cover: '/covers/yt-rag.svg',
-    hue: 350,
     tagline: 'LangChain · OpenAI embeddings · FAISS',
   },
   {
@@ -190,7 +185,6 @@ export const PROJECTS: Project[] = [
     date: '2022–2024',
     links: [],
     cover: '/covers/media-groww.svg',
-    hue: 18,
     tagline: 'Video-editing agency · co-founded at BITS Goa',
   },
   {
@@ -202,7 +196,6 @@ export const PROJECTS: Project[] = [
     date: '2025',
     links: [{ name: 'GitHub', url: 'https://github.com/jeetkalita719/Book_Recommendation' }],
     cover: '/covers/book-rec.svg',
-    hue: 30,
     tagline: 'Collaborative filtering · Flask',
   },
   {
@@ -214,7 +207,6 @@ export const PROJECTS: Project[] = [
     date: '2025',
     links: [{ name: 'GitHub', url: 'https://github.com/jeetkalita719/course_allocation_system' }],
     cover: '/covers/course-allocation.svg',
-    hue: 275,
     tagline: 'Graph optimisation · C++ · preference-aware assignment',
   },
   {
@@ -226,7 +218,6 @@ export const PROJECTS: Project[] = [
     date: '2024',
     links: [{ name: 'GitHub', url: 'https://github.com/jeetkalita719/ioclapp' }],
     cover: '/covers/iocl.svg',
-    hue: 150,
     tagline: 'Secure internal tooling · Node.js · REST',
   },
 ];

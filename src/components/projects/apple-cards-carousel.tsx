@@ -23,7 +23,6 @@ export type CarouselCard = {
   title: string;
   category: string;
   tagline: string; // already resolved with the fallback; may be ''
-  hue: number; // already normalised
   src: string; // cover, for the modal
   content: React.ReactNode;
 };
@@ -312,14 +311,7 @@ export const Card = ({
         onClick={handleOpen}
         whileHover={reduceMotion ? undefined : { y: -4 }}
         aria-label={`Open ${card.title}`}
-        style={
-          {
-            '--card-hue': card.hue,
-            '--card-dot': 'hsl(var(--card-hue) 80% 70% / 0.35)',
-            '--card-glow': 'hsl(var(--card-hue) 90% 65%)',
-          } as React.CSSProperties
-        }
-        className="group relative z-10 flex h-80 w-56 flex-col items-start overflow-hidden rounded-3xl bg-[linear-gradient(to_bottom,hsl(var(--card-hue)_60%_12%),hsl(var(--card-hue)_70%_26%))] p-6 text-left shadow shadow-white/10 ring-1 ring-white/5 transition-shadow hover:ring-white/15 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:outline-none focus-visible:ring-inset"
+        className="group bg-background relative z-10 flex h-80 w-56 flex-col overflow-hidden rounded-3xl p-6 text-left shadow shadow-white/10 ring-1 ring-white/5 transition-shadow hover:ring-white/15 focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:outline-none focus-visible:ring-inset"
       >
         {/* Dots are unmounted while any modal is open (they'd force the backdrop blur to repaint). */}
         {openIndex === null && (
@@ -328,45 +320,42 @@ export const Card = ({
             className="pointer-events-none absolute inset-0 z-0"
           >
             <DottedGlowBackground
-              className="[mask-image:radial-gradient(circle_at_center,black_55%,transparent_90%)]"
-              gap={18}
-              radius={1.4}
-              opacity={0.9}
+              className="[mask-image:radial-gradient(ellipse_at_center,black,transparent_90%)]"
+              gap={16}
+              radius={1.6}
+              opacity={1}
               backgroundOpacity={0}
               speedMin={0.3}
-              speedMax={1.4}
+              speedMax={1.6}
               speedScale={reduceMotion ? 0 : 1}
-              colorDarkVar="--card-dot"
-              glowColorDarkVar="--card-glow"
+              darkColor="rgb(115 115 115)" // neutral-500
+              darkGlowColor="rgb(7 89 133)" // sky-800
             />
           </div>
         )}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-black/60 via-transparent to-transparent"
-        />
         <motion.p
           layoutId={layout ? `category-${card.title}` : undefined}
-          className="relative z-10 w-full truncate text-sm font-medium text-white/80"
+          className="relative z-10 w-full truncate text-sm font-medium text-neutral-400"
         >
           {card.category}
         </motion.p>
-        <motion.p
-          layoutId={layout ? `title-${card.title}` : undefined}
-          className="relative z-10 mt-2 line-clamp-3 w-full text-xl font-semibold break-words text-white [text-wrap:balance]"
-        >
-          {card.title}
-        </motion.p>
-        <div className="flex-1" />
+        <div className="relative z-10 flex w-full flex-1 items-center justify-center">
+          <motion.p
+            layoutId={layout ? `title-${card.title}` : undefined}
+            className="line-clamp-3 w-full text-center text-xl font-bold break-words text-white [text-wrap:balance]"
+          >
+            {card.title}
+          </motion.p>
+        </div>
         <div className="relative z-10 flex w-full items-end justify-between gap-3 backdrop-blur-[2px]">
           {card.tagline && (
-            <p className="line-clamp-2 text-xs text-[hsl(var(--card-hue)_80%_78%)]">
+            <p className="line-clamp-2 text-xs text-neutral-400">
               {card.tagline}
             </p>
           )}
           <IconArrowNarrowRight
             aria-hidden
-            className="ml-auto h-5 w-5 shrink-0 text-white/80 transition-transform group-hover:translate-x-1"
+            className="ml-auto h-5 w-5 shrink-0 text-neutral-400 transition-transform group-hover:translate-x-1"
           />
         </div>
       </motion.button>

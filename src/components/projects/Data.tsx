@@ -61,9 +61,6 @@ const ProjectContent = ({ project }: { project: Project }) => {
   );
 };
 
-// Hue is a circle: wrap out-of-range values instead of clamping (400 → 40).
-const normalizeHue = (h: number) => ((h % 360) + 360) % 360;
-
 // Empty string means "hide the tagline".
 const resolveTagline = (p: Project) => p.tagline ?? p.techStack.slice(0, 3).join(' · ');
 
@@ -80,7 +77,6 @@ export const data: CarouselCard[] = PROJECTS.map((p) => ({
   category: p.category,
   title: p.title,
   tagline: resolveTagline(p),
-  hue: normalizeHue(p.hue),
   src: p.cover,
   content: <ProjectContent project={p} />,
 }));
