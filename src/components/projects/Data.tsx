@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ChevronRight, Link } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { PROJECTS, type Project } from '@/lib/profile';
+import type { CarouselCard } from './apple-cards-carousel';
 
 const ProjectContent = ({ project }: { project: Project }) => {
   return (
@@ -60,9 +61,26 @@ const ProjectContent = ({ project }: { project: Project }) => {
   );
 };
 
-export const data = PROJECTS.map((p) => ({
+// Hue is a circle: wrap out-of-range values instead of clamping (400 → 40).
+const normalizeHue = (h: number) => ((h % 360) + 360) % 360;
+
+// Empty string means "hide the tagline".
+const resolveTagline = (p: Project) => p.tagline ?? p.techStack.slice(0, 3).join(' · ');
+
+// Titles double as layoutIds, so duplicates would break the open/close animation.
+if (process.env.NODE_ENV !== 'production') {
+  const seen = new Set<string>();
+  for (const p of PROJECTS) {
+    if (seen.has(p.title)) console.warn(`[projects] Duplicate project title: "${p.title}"`);
+    seen.add(p.title);
+  }
+}
+
+export const data: CarouselCard[] = PROJECTS.map((p) => ({
   category: p.category,
   title: p.title,
+  tagline: resolveTagline(p),
+  hue: normalizeHue(p.hue),
   src: p.cover,
   content: <ProjectContent project={p} />,
 }));

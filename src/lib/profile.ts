@@ -124,7 +124,9 @@ export type Project = {
   techStack: string[];
   date: string;
   links: { name: string; url: string }[];
-  cover: string; // path under /public
+  cover: string; // path under /public, 16:9; used in the modal only
+  hue: number; // 0–359, card gradient hue (matches the cover SVG)
+  tagline?: string; // one line for the card footer; ≤ 60 chars recommended
 };
 
 export const PROJECTS: Project[] = [
@@ -140,6 +142,8 @@ export const PROJECTS: Project[] = [
       { name: 'GitHub', url: 'https://github.com/jeetkalita719/jeet-ai-website' },
     ],
     cover: '/covers/this-site.svg',
+    hue: 205,
+    tagline: 'Chat-first portfolio · Vercel AI SDK · tool calling',
   },
   {
     title: 'Job-Intelligence Agent',
@@ -150,6 +154,8 @@ export const PROJECTS: Project[] = [
     date: '2026',
     links: [],
     cover: '/covers/job-agent.svg',
+    hue: 195,
+    tagline: 'AI agent · ATS feeds · RAG · drafts applications',
   },
   {
     title: 'Expense-Tracker MCP Server',
@@ -160,6 +166,8 @@ export const PROJECTS: Project[] = [
     date: '2026',
     links: [],
     cover: '/covers/expense-mcp.svg',
+    hue: 260,
+    tagline: 'FastMCP server · tools an assistant can call',
   },
   {
     title: 'YouTube Transcript RAG Chatbot',
@@ -170,6 +178,8 @@ export const PROJECTS: Project[] = [
     date: '2026',
     links: [{ name: 'GitHub', url: 'https://github.com/jeetkalita719/yt_transcript_chatbot' }],
     cover: '/covers/yt-rag.svg',
+    hue: 350,
+    tagline: 'LangChain · OpenAI embeddings · FAISS',
   },
   {
     title: 'Media Groww',
@@ -180,6 +190,8 @@ export const PROJECTS: Project[] = [
     date: '2022–2024',
     links: [],
     cover: '/covers/media-groww.svg',
+    hue: 18,
+    tagline: 'Video-editing agency · co-founded at BITS Goa',
   },
   {
     title: 'Book Recommendation System',
@@ -190,6 +202,8 @@ export const PROJECTS: Project[] = [
     date: '2025',
     links: [{ name: 'GitHub', url: 'https://github.com/jeetkalita719/Book_Recommendation' }],
     cover: '/covers/book-rec.svg',
+    hue: 30,
+    tagline: 'Collaborative filtering · Flask',
   },
   {
     title: 'University Course Allocation',
@@ -200,6 +214,8 @@ export const PROJECTS: Project[] = [
     date: '2025',
     links: [{ name: 'GitHub', url: 'https://github.com/jeetkalita719/course_allocation_system' }],
     cover: '/covers/course-allocation.svg',
+    hue: 275,
+    tagline: 'Graph optimisation · C++ · preference-aware assignment',
   },
   {
     title: 'Stationery system — Indian Oil',
@@ -210,6 +226,8 @@ export const PROJECTS: Project[] = [
     date: '2024',
     links: [{ name: 'GitHub', url: 'https://github.com/jeetkalita719/ioclapp' }],
     cover: '/covers/iocl.svg',
+    hue: 150,
+    tagline: 'Secure internal tooling · Node.js · REST',
   },
 ];
 
