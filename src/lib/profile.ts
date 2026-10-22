@@ -4,6 +4,16 @@
  * Cards in the chat and the system prompt both read from here.
  */
 
+// A value that is empty or still an unfilled spec placeholder ("{{ FILL: … }}") counts as unset (tile hidden / fallback).
+export const filled = (v: string) => Boolean(v) && !/\{\{\s*FILL/.test(v);
+
+const HANDLES = {
+  instagram: 'jeet.k_', // username, no @
+  x: 'JeetKalita719', // username, no @
+  xUserId: '1641144910240677888', // numeric id for the DM deep link (a string: too big for a JS number); '' → profile link
+  linkedin: 'jeetkalita', // the part after linkedin.com/in/
+};
+
 export const PROFILE = {
   name: 'Jeet Kalita',
   firstName: 'Jeet',
@@ -13,12 +23,24 @@ export const PROFILE = {
   tagline: "Ask my AI anything about me — it knows me pretty well.",
   location: 'Pune, India · works remotely, worldwide',
   email: 'jeetkalita719@gmail.com',
-  // TODO: paste your real LinkedIn / X URLs — they then appear on the Contact card automatically.
+  handles: HANDLES,
+  // Copy and prefill text for the Contact card.
+  contact: {
+    heading: "Let's connect",
+    subline: 'Replies personally, usually within a day',
+    emailSubject: 'Hey Jeet — found you through your site',
+    emailBody: 'Hi Jeet,\n\n',
+    dmText: 'Hey Jeet! Found you through your website 👋',
+  },
+  // Feeds the assistant's prompt. Empty handles are left out so it never mentions a missing channel.
   socials: [
     { name: 'GitHub', url: 'https://github.com/jeetkalita719' },
-    // { name: 'LinkedIn', url: 'https://www.linkedin.com/in/YOUR-HANDLE/' },
-    // { name: 'X', url: 'https://x.com/YOUR-HANDLE' },
-  ],
+    { name: 'Instagram', url: `https://instagram.com/${HANDLES.instagram}`, handle: HANDLES.instagram },
+    { name: 'X', url: `https://x.com/${HANDLES.x}`, handle: HANDLES.x },
+    { name: 'LinkedIn', url: `https://www.linkedin.com/in/${HANDLES.linkedin}/`, handle: HANDLES.linkedin },
+  ]
+    .filter((s) => s.handle === undefined || filled(s.handle))
+    .map(({ name, url }) => ({ name, url })),
   education: 'B.E. Electronics & Communication Engineering — BITS Pilani, Goa campus (2022–2026)',
   intro:
     "Hey 👋\nI'm Jeet — 22, originally from Duliajan, a small oil town in Assam. Did my engineering at BITS Goa, now based in Pune.\n\nI build AI things: chatbots, agents, automations, and the websites they live in. Weekends go into RAG, LangGraph and whatever project has my attention that week.\n\nThis assistant you're talking to? Built it myself. Ask it anything.",
@@ -239,5 +261,5 @@ export const QUICK_QUESTIONS = {
   Projects: 'What have you built? Show me your projects.',
   Services: 'What can you build for my business?',
   Skills: 'What are your skills and stack?',
-  Contact: 'How can I reach you to start a project?',
+  Contact: 'Hey I want to connect. How can I contact you?',
 } as const;

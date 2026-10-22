@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { QUICK_QUESTIONS } from '@/lib/profile';
 import { cn } from '@/lib/utils';
 import {
   Tooltip,
@@ -33,14 +34,6 @@ interface HelperBoostProps {
   setInput?: (value: string) => void;
   
 }
-
-const questions = {
-  Me: 'Who are you? Tell me about yourself.',
-  Projects: 'What have you built? Show me your projects.',
-  Services: 'What can you build for my business?',
-  Skills: 'What are your skills and stack?',
-  Contact: 'How can I reach you to start a project?',
-};
 
 const questionConfig = [
   { key: 'Me', color: '#329696', icon: Laugh },
@@ -138,7 +131,7 @@ export default function HelperBoost({
 
   const handleQuestionClick = (questionKey: string) => {
     if (submitQuery) {
-      submitQuery(questions[questionKey as keyof typeof questions]);
+      submitQuery(QUICK_QUESTIONS[questionKey as keyof typeof QUICK_QUESTIONS]);
     }
   };
 

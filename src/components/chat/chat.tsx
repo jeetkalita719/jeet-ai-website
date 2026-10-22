@@ -15,6 +15,7 @@ import {
   ChatBubbleMessage,
 } from '@/components/ui/chat/chat-bubble';
 import HelperBoost from './HelperBoost';
+import { ChatMessagesProvider } from './chat-messages-context';
 import DoodleAvatar from '@/components/doodle-avatar';
 import { Home } from 'lucide-react';
 import Link from 'next/link';
@@ -178,6 +179,7 @@ const Chat = () => {
   const headerHeight = hasActiveTool ? 100 : 180;
 
   return (
+    <ChatMessagesProvider messages={messages}>
     <div className="relative h-screen overflow-hidden">
       <div className="absolute top-6 right-6 z-[51]">
         <Link href="/" aria-label="Back to home" className="hover:bg-accent text-muted-foreground hover:text-foreground flex items-center gap-2 rounded-2xl px-3 py-1.5 text-sm transition-colors">
@@ -281,6 +283,7 @@ const Chat = () => {
         </div>
       </div>
     </div>
+    </ChatMessagesProvider>
   );
 };
 
