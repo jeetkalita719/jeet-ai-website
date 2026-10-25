@@ -1,8 +1,14 @@
 'use client';
 import { useChat } from '@ai-sdk/react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { toast } from 'sonner';
 
 // Component imports
@@ -59,12 +65,28 @@ const MOTION_CONFIG = {
   },
 };
 
+const AVATAR_HIDE_AT = 48; // px of chat scroll after which the avatar hides
+const AVATAR_SHOW_AT = 16; // px of chat scroll at or below which it shows again
+
 const Chat = () => {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get('query');
   const [autoSubmitted, setAutoSubmitted] = useState(false);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [isTalking, setIsTalking] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [showAvatar, setShowAvatar] = useState(true);
+  const [contentSwaps, setContentSwaps] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Hysteresis: hide past AVATAR_HIDE_AT, show again only at AVATAR_SHOW_AT
+  const syncAvatar = useCallback(
+    (scrollTop: number) =>
+      setShowAvatar((prev) =>
+        prev ? scrollTop <= AVATAR_HIDE_AT : scrollTop <= AVATAR_SHOW_AT
+      ),
+    []
+  );
 
   const {
     messages,
@@ -175,6 +197,17 @@ const Chat = () => {
   const isEmptyState =
     !currentAIMessage && !latestUserMessage && !loadingSubmit;
 
+  // Content swaps can clamp scrollTop without the user scrolling
+  useEffect(() => {
+    if (scrollRef.current) syncAvatar(scrollRef.current.scrollTop);
+  }, [
+    currentAIMessage?.id,
+    loadingSubmit,
+    isEmptyState,
+    contentSwaps,
+    syncAvatar,
+  ]);
+
   // Calculate header height based on hasActiveTool
   const headerHeight = hasActiveTool ? 100 : 180;
 
@@ -189,7 +222,7 @@ const Chat = () => {
 
       {/* Fixed Avatar Header with Gradient */}
       <div
-        className="fixed top-0 right-0 left-0 z-50"
+        className="pointer-events-none fixed top-0 right-0 left-0 z-50"
         style={{
           background:
             'linear-gradient(to bottom, var(--background) 0%, color-mix(in srgb, var(--background) 92%, transparent) 40%, transparent 100%)',
@@ -199,16 +232,33 @@ const Chat = () => {
           className={`transition-all duration-300 ease-in-out ${hasActiveTool ? 'pt-6 pb-0' : 'py-6'}`}
         >
           <div className="flex justify-center">
-            <ClientOnly>
-              <Avatar hasActiveTool={hasActiveTool} isTalking={isTalking} />
-            </ClientOnly>
+            <motion.div
+              aria-hidden={!showAvatar}
+              className={
+                showAvatar ? 'pointer-events-auto' : 'pointer-events-none'
+              }
+              initial={false}
+              animate={
+                prefersReducedMotion
+                  ? { opacity: showAvatar ? 1 : 0 }
+                  : { opacity: showAvatar ? 1 : 0, y: showAvatar ? 0 : -16 }
+              }
+              transition={{
+                duration: prefersReducedMotion ? 0.15 : 0.25,
+                ease: 'easeOut',
+              }}
+            >
+              <ClientOnly>
+                <Avatar hasActiveTool={hasActiveTool} isTalking={isTalking} />
+              </ClientOnly>
+            </motion.div>
           </div>
 
           <AnimatePresence>
             {latestUserMessage && !currentAIMessage && (
               <motion.div
                 {...MOTION_CONFIG}
-                className="mx-auto flex max-w-3xl px-4"
+                className="pointer-events-auto mx-auto flex max-w-3xl px-4"
               >
                 <ChatBubble variant="sent">
                   <ChatBubbleMessage>
@@ -230,10 +280,15 @@ const Chat = () => {
       <div className="container mx-auto flex h-full max-w-3xl flex-col">
         {/* Scrollable Chat Content */}
         <div
+          ref={scrollRef}
+          onScroll={(e) => syncAvatar(e.currentTarget.scrollTop)}
           className="flex-1 overflow-y-auto px-2"
           style={{ paddingTop: `${headerHeight}px` }}
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence
+            mode="wait"
+            onExitComplete={() => setContentSwaps((n) => n + 1)}
+          >
             {isEmptyState ? (
               <motion.div
                 key="landing"
