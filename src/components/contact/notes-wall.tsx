@@ -40,6 +40,10 @@ function relativeTime(iso: string) {
   return 'just now';
 }
 
+// Visitors sometimes type their own quotes; drop one wrapping pair so we don't show ““…””.
+const WRAPPING_QUOTES = /^["“”'‘’](.+)["“”'‘’]$/u;
+const unquote = (s: string) => s.match(WRAPPING_QUOTES)?.[1].trim() || s;
+
 const LAYOUT_SPRING = { type: 'spring', stiffness: 320, damping: 32 } as const;
 
 export function NotesWall({
@@ -150,7 +154,7 @@ export function NotesWall({
                     className="bg-card flex h-32 flex-col rounded-2xl p-4 ring-1 ring-white/5"
                   >
                     <p className="text-foreground line-clamp-4 text-sm [overflow-wrap:anywhere]">
-                      {note.text}
+                      &ldquo;{unquote(note.text)}&rdquo;
                     </p>
                     <span className="flex-1" />
                     <p className="text-muted-foreground truncate text-xs">

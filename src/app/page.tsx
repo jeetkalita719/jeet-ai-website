@@ -51,8 +51,7 @@ export default function Home() {
         initial="hidden"
         animate="visible"
       >
-        <h2 className="text-secondary-foreground mt-1 text-xl font-semibold md:text-2xl">Hi, I&apos;m {PROFILE.firstName} 👋</h2>
-        <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl">{PROFILE.title}</h1>
+        <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl">Hi, I&apos;m {PROFILE.firstName} 👋</h1>
         <p className="text-muted-foreground mt-3 max-w-md text-sm md:text-base">{PROFILE.tagline}</p>
       </motion.div>
 
