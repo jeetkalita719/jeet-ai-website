@@ -61,7 +61,7 @@ export function Contact() {
 
   return (
     <div className="mx-auto mt-8 w-full">
-      <div className="bg-accent flex w-full flex-col gap-6 overflow-hidden rounded-3xl px-5 py-7 font-sans sm:px-8 md:px-10 md:py-10">
+      <div className="bg-accent/90 flex w-full flex-col gap-6 overflow-hidden rounded-3xl px-5 py-7 font-sans sm:px-8 md:px-10 md:py-10">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-foreground text-3xl font-semibold md:text-4xl">
             {PROFILE.contact.heading}

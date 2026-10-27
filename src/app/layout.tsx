@@ -1,3 +1,4 @@
+import FluidCursor from '@/components/FluidCursor';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={cn('bg-background min-h-screen font-sans antialiased', inter.variable)}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <main className="flex min-h-screen flex-col">{children}</main>
+          <FluidCursor />
           <Toaster />
         </ThemeProvider>
         <Analytics />

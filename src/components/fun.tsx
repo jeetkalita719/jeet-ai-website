@@ -8,7 +8,7 @@ import DoodleAvatar from './doodle-avatar';
 export default function Fun() {
   return (
     <div className="mx-auto w-full max-w-5xl py-6 font-sans">
-      <div className="bg-accent grid grid-cols-1 gap-6 rounded-3xl p-6 md:grid-cols-[160px_1fr] md:p-8">
+      <div className="bg-accent/90 grid grid-cols-1 gap-6 rounded-3xl p-6 md:grid-cols-[160px_1fr] md:p-8">
         <div className="flex items-end justify-center">
           <DoodleAvatar size={150} />
         </div>

@@ -121,6 +121,32 @@
   }
 }
 
+/* Soft, borderless backdrop that dims the fluid glow behind text with no surface */
+@layer components {
+  .glow-scrim {
+    --scrim-bleed: 16px;
+    --scrim-strength: 85%;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .glow-scrim::before {
+    content: '';
+    position: absolute;
+    inset: calc(var(--scrim-bleed) * -1);
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 1.5rem;
+    background: color-mix(in oklab, var(--background) var(--scrim-strength), transparent);
+    --scrim-x: linear-gradient(to right, transparent, #000 var(--scrim-bleed), #000 calc(100% - var(--scrim-bleed)), transparent);
+    --scrim-y: linear-gradient(to bottom, transparent, #000 var(--scrim-bleed), #000 calc(100% - var(--scrim-bleed)), transparent);
+    -webkit-mask-image: var(--scrim-x), var(--scrim-y);
+    -webkit-mask-composite: source-in;
+    mask-image: var(--scrim-x), var(--scrim-y);
+    mask-composite: intersect;
+  }
+}
+
 .custom-scrollbar {
   /* For Firefox */
   scrollbar-width: thin;

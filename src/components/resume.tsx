@@ -12,7 +12,7 @@ export function Resume() {
       <motion.a
         href={r.url}
         download
-        className="group relative block cursor-pointer overflow-hidden rounded-xl bg-accent p-0 transition-all duration-300"
+        className="group relative block cursor-pointer overflow-hidden rounded-xl bg-accent/90 p-0 transition-all duration-300"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ scale: 1.01 }}

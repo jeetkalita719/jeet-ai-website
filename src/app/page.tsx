@@ -1,7 +1,6 @@
 'use client';
 
 import DoodleAvatar from '@/components/doodle-avatar';
-import FluidCursor from '@/components/FluidCursor';
 import { Button } from '@/components/ui/button';
 import { PROFILE, QUICK_QUESTIONS } from '@/lib/profile';
 import { motion } from 'framer-motion';
@@ -122,7 +121,6 @@ export default function Home() {
           Powered by an AI assistant I built myself.
         </p>
       </motion.div>
-      <FluidCursor />
     </div>
   );
 }

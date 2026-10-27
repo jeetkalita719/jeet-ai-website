@@ -61,7 +61,7 @@ export function SimplifiedChatView({
   return (
     <motion.div {...MOTION_CONFIG} className="flex h-full w-full flex-col px-4">
       {/* Single scrollable container for both tool and text content */}
-      <div className="custom-scrollbar flex h-full w-full flex-col overflow-y-auto">
+      <div className="flex h-full w-full flex-col">
         {/* Tool invocation result - displayed at the top */}
         {hasTools && (
           <div className="mb-4 w-full">
@@ -74,7 +74,7 @@ export function SimplifiedChatView({
 
         {/* Text content */}
         {hasTextContent && (
-          <div className="w-full">
+          <div className="glow-scrim w-full">
             <ChatBubble variant="received" className="w-full">
               <ChatBubbleMessage className="w-full">
                 <ChatMessageContent

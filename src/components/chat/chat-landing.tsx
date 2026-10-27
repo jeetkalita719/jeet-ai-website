@@ -63,19 +63,21 @@ const ChatLanding: React.FC<ChatLandingProps> = ({
       animate="visible"
       variants={containerVariants}
     >
-      <motion.h2 variants={itemVariants} className="text-foreground text-center text-2xl font-semibold md:text-3xl">
-        Ask me anything about Jeet.
-      </motion.h2>
-      <motion.p variants={itemVariants} className="text-muted-foreground mt-2 max-w-md text-center">
-        What he builds, how he works, and whether he can help with what you have in mind.
-      </motion.p>
+      <div className="glow-scrim flex w-fit max-w-full flex-col items-center">
+        <motion.h2 variants={itemVariants} className="text-foreground text-center text-2xl font-semibold md:text-3xl">
+          Ask me anything about Jeet.
+        </motion.h2>
+        <motion.p variants={itemVariants} className="text-muted-foreground mt-2 max-w-md text-center">
+          What he builds, how he works, and whether he can help with what you have in mind.
+        </motion.p>
+      </div>
       <div className="mt-8 grid w-full max-w-lg grid-cols-1 gap-2 sm:grid-cols-2">
         {suggestedQuestions.map((q) => (
           <motion.button
             key={q.text}
             variants={itemVariants}
             onClick={() => submitQuery(q.text)}
-            className="bg-accent hover:bg-accent/70 text-foreground flex cursor-pointer items-center gap-2 rounded-xl px-4 py-3 text-left text-sm transition-colors"
+            className="bg-accent/90 hover:bg-accent/80 text-foreground flex cursor-pointer items-center gap-2 rounded-xl px-4 py-3 text-left text-sm transition-colors"
           >
             <span className="text-muted-foreground">{q.icon}</span>
             {q.text}

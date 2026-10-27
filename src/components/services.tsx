@@ -15,8 +15,10 @@ const ICONS: Record<string, React.ReactNode> = {
 export default function Services() {
   return (
     <div className="mx-auto w-full max-w-5xl py-6 font-sans">
-      <h2 className="text-foreground text-2xl font-semibold md:text-3xl">What I build for you</h2>
-      <p className="text-muted-foreground mt-1 mb-6">Framed by outcome, not jargon. Every engagement ends with something live.</p>
+      <div className="glow-scrim mb-6">
+        <h2 className="text-foreground text-2xl font-semibold md:text-3xl">What I build for you</h2>
+        <p className="text-muted-foreground mt-1">Framed by outcome, not jargon. Every engagement ends with something live.</p>
+      </div>
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {SERVICES.map((s, i) => (
           <motion.div
@@ -24,7 +26,7 @@ export default function Services() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08, duration: 0.45, ease: 'easeOut' }}
-            className="bg-accent flex flex-col gap-3 rounded-2xl p-5"
+            className="bg-accent/90 flex flex-col gap-3 rounded-2xl p-5"
           >
             <div className="text-foreground flex items-center gap-2 font-semibold">
               <span className="bg-background text-foreground flex h-9 w-9 items-center justify-center rounded-xl">{ICONS[s.key]}</span>

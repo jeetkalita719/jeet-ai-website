@@ -213,7 +213,7 @@ const Chat = () => {
 
   return (
     <ChatMessagesProvider messages={messages}>
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative z-10 h-screen overflow-hidden">
       <div className="absolute top-6 right-6 z-[51]">
         <Link href="/" aria-label="Back to home" className="hover:bg-accent text-muted-foreground hover:text-foreground flex items-center gap-2 rounded-2xl px-3 py-1.5 text-sm transition-colors">
           <Home className="h-4 w-4" /> Home
@@ -323,7 +323,7 @@ const Chat = () => {
         </div>
 
         {/* Fixed Bottom Bar */}
-        <div className="bg-background sticky bottom-0 px-2 pt-3 md:px-0 md:pb-4">
+        <div className="sticky bottom-0 px-2 pt-3 md:px-0 md:pb-4">
           <div className="relative flex flex-col items-center gap-3">
             <HelperBoost submitQuery={submitQuery} setInput={setInput} />
             <ChatBottombar

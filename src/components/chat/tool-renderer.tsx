@@ -30,13 +30,13 @@ export default function ToolRenderer({ toolInvocations }: ToolRendererProps) {
         const render = COMPONENTS[toolName];
         if (render) {
           return (
-            <div key={toolCallId} className="w-full overflow-hidden rounded-lg">
+            <div key={toolCallId} className="w-full">
               {render()}
             </div>
           );
         }
         return (
-          <div key={toolCallId} className="bg-secondary/10 w-full rounded-lg p-4">
+          <div key={toolCallId} className="bg-card/90 w-full rounded-lg p-4">
             <p className="text-sm">{typeof tool.result === 'object' ? JSON.stringify(tool.result) : String(tool.result ?? '')}</p>
           </div>
         );

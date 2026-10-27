@@ -55,7 +55,7 @@ export function Presentation() {
           )}
         </div>
 
-        <div className="flex flex-col">
+        <div className="glow-scrim flex flex-col">
           <motion.div initial="hidden" animate="visible" variants={textVariants}>
             <h1 className="from-foreground to-muted-foreground bg-gradient-to-r bg-clip-text text-xl font-semibold text-transparent md:text-3xl">
               {PROFILE.name}
