@@ -53,16 +53,16 @@ const Skills = () => {
       transition={{ duration: 0.6, ease: [0.19, 1, 0.22, 1] }}
       className="mx-auto w-full max-w-5xl rounded-4xl"
     >
-      <Card className="w-full border-none px-0 pb-12 shadow-none">
-        <CardHeader className="px-0 pb-1">
-          <CardTitle className="text-primary px-0 text-4xl font-bold">
+      <Card className="w-full border-none pb-12 shadow-none">
+        <CardHeader className="px-6 pb-1 md:px-8">
+          <CardTitle className="text-primary text-4xl font-bold">
             Skills & Expertise
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="px-0">
+        <CardContent className="px-6 md:px-8">
           <motion.div
-            className="space-y-8 px-0"
+            className="space-y-8"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -70,7 +70,7 @@ const Skills = () => {
             {skillsData.map((section, index) => (
               <motion.div
                 key={index}
-                className="space-y-3 px-0"
+                className="space-y-3"
                 variants={itemVariants}
               >
                 <div className="flex items-center gap-2">
